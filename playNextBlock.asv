@@ -50,8 +50,8 @@ nc.preStimSil = presInfo.preStimSil;
 presentStimContSoundcard_stimGUI(handles, presInfo)
 
 %% fill initial buffer
-% PsychPortAudio('FillBuffer', nc.s, presInfo.triggerAcquisition,1);
-% PsychPortAudio('Start',nc.s,1); % present once
-% set(handles.status,'String',sprintf('Presenting block %02d/%02d',nc.blockN,nc.nBlocks));
-% 
-% clear presInfo
+PsychPortAudio('FillBuffer', nc.s, presInfo.triggerAcquisition,1);
+PsychPortAudio('Start',nc.s,1); % present once
+set(handles.status,'String',sprintf('Presenting block %02d/%02d',nc.blockN,nc.nBlocks));
+
+clear presInfo

@@ -336,7 +336,6 @@ if state
     if ~isfield(nc,'s')
         nc.s = connectToAurora(fs,[],1:8);
     end
-    PsychPortAudio('UseSchedule', nc.s, 0); 
     set(handles.status,'String','Aurora soundcard connected');
     PsychPortAudio('FillBuffer', nc.s, output);
     reps = 0; % play continuously until stopped
@@ -372,6 +371,7 @@ delete(instrfindall)
 
 %% START PUSH BUTTON
 function startbutton_Callback(hObject, eventdata, handles)
+clear -global nc
 global nc pm
 nc.blockN = 1;
 nc.mouse = pm.mouse;
@@ -410,7 +410,7 @@ pm.filter = get(hObject,'value');
 
 
 
-%% SOUNDCARD SETTINGS
+%% NIDAQ SETTINGS
 function inputN_Callback(hObject, eventdata, handles) % NUMBER OF INPUT CHANNELS
 % Hints: get(hObject,'String') returns contents of inputN as text
 %        str2double(get(hObject,'String')) returns contents of inputN as a double
@@ -425,13 +425,49 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
+function input1_Callback(hObject, eventdata, handles) % 1ST INPUT CHANNEL
+function input1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function output1_Callback(hObject, eventdata, handles)% 1ST OUTPUT CHANNEL
+function output1_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input2_Callback(hObject, eventdata, handles) % 2ND INPUT CHANNEL
+function input2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function output2_Callback(hObject, eventdata, handles) % 2ND OUTPUT CHANNEL
+function output2_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function input3_Callback(hObject, eventdata, handles)% 3RD INPUT CHANNEL
+function input3_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function output3_Callback(hObject, eventdata, handles)% 3RD OUTPUT CHANNEL
+function output3_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
 
 %% QUIT BUTTON
 function quitbutton_Callback(hObject, eventdata, handles)
 fclose('all');
+clear
 clear global
 close all
-clear all %#ok<*CLALL>
 
 
 %% SAVE CONFIG
@@ -558,7 +594,7 @@ end
 
 
 
-%% BLUE LED BUTTON
+% --- Executes on button press in togglebutton5.
 function togglebutton5_Callback(hObject, eventdata, handles)
 % hObject    handle to togglebutton5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -588,8 +624,7 @@ function togglebutton5_Callback(hObject, eventdata, handles)
 %     disp('GREEN LED OFF')
 % end
 
-
-%% GREEN LED BUTTON
+% --- Executes on button press in togglebutton6.
 function togglebutton6_Callback(hObject, eventdata, handles)
 % hObject    handle to togglebutton6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB

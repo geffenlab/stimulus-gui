@@ -118,10 +118,9 @@ else
     set(handles.status,'String',['Block ' num2str(nc.blockN) ' of ' num2str(nc.nBlocks) ' saved'])
     nc.blockN = nc.blockN+1;
     %% NOW ADD IN A NEW FUNCTION, 'PLAYNEXTBLOCK'
-    if nc.blockN<=nc.nBlocks
+    if nc.blockN <= nc.nBlocks
         disp('Press enter to start the next block...');
         pause();
-        %         nc.blockN = nc.blockN+1;
         playNextBlock(handles);
     end
     
