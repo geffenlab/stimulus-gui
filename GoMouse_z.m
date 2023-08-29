@@ -326,8 +326,8 @@ if state
     ISI = .5; % time in secs between click trains
     reps = 2; % number of click trains per event
     fs = str2double(get(handles.samplerate,'String'));
-    filtName = get(handles.filterfile,'String');
-%     load(filtName);
+    % filtName = get(handles.filterfile,'String');
+    % load(filtName);
     FILT = [];
     noise = makeClicks(fs,duty,rate,dur,ISI,reps,FILT); % duration, ISI and sample rate
     output = zeros(8,length(noise));
@@ -366,7 +366,7 @@ end
 %% RESET NIDAQ
 function reset_Callback(hObject, eventdata, handles)
 daqreset
-delete(instrfindall)
+delete(instrfindall) %#ok<INSTFA>
 
 
 
@@ -471,7 +471,7 @@ end
 function loadconfig_Callback(hObject, eventdata, handles)
 global pm
 [filename,pathname]=uigetfile(pm.stimFolder);
-load([pathname filename]);
+load([pathname filename]); %#ok<LOAD>
 c = cellstr(get(handles.mouselist,'String'));
 set(handles.mouselist,'Value',find(strcmp(c,GUIdata.mouse))); % mouse
 pm.mouse = GUIdata.mouse;
@@ -540,8 +540,8 @@ if ~isempty(nc)
         exptInfo.fsStim = nc.fs;
         exptInfo.presParams = nc;
         exptInfo.presDirs = pm;
-        exptInfo.status = 'ABORTED'; %#ok<STRNU>
-        fn = fullfile(pm.saveFolder,[datestr(now,'YYmmdd_HHMMSS') '_exptInfo.mat']);
+        exptInfo.status = 'ABORTED'; 
+        fn = strcat(pm.saveFolder, string(datetime('now','yyyyMMdd_HHmmss')), '_exptInfo.mat');
         save(fn,'exptInfo');
         set(handles.status,'String',['Block ' num2str(nc.blockN) ' of ' num2str(nc.nBlocks) ' saved'])
         
@@ -596,7 +596,7 @@ function togglebutton6_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of togglebutton6
-global nc
+global nc %#ok<*GVMIS>
 % clear -global nc
 state = logical(get(hObject,'Value'));
 if state
